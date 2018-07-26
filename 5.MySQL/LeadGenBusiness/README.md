@@ -1,1 +1,1 @@
-## Upload your queries either in a .txt file or an exported SQL file
+## This is an optional assignment! Have fun, all star!
