@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Why use Dvorak?</title>
+		<meta name="description" content="This is a blog post detailing the pros of using a Dvorak keyboard layout as opposed to a Qwerty layout">
+	</head>
+	<body>
+		<h1>The Dvorak Keyboard Layout</h1>
+		<p>
+			Take a look at you keyboard. What do you see along the top left. Most likely the first few letters you see are Q-W-E-R-T-Y.
+			This isn't a bad thing, it is simply the most common. Almost everyone in the world uses the Qwerty layout.
+			However there are other options and they can help you type faster, longer, and with less risk of carpal tunnel.
+		</p>
+		<p>
+			Enter Dvorak; A keyboard made with efficiency and health in mind. While Qwerty seems to have it's keys arranged at random Dvorak does a few things to help you type faster.
+			The ten most common letters are all on the home row (under your fingers when you rest them on the keyboard). This means your hands move less overall when using Dvorak.
+			Also digraphs (keys that are often hit in quick succession like th, st, er, ... etc.) are almost always positioned so different fingers hit them.
+			This promotes healthy and quick typing without wearing out one finger more than any of the others.
+		</p>
+		<p>
+			If you'd like to learn more then I'd recommend looking at the <a target="_blank" href="http://www.dvzine.org/">DVZine</a>. It's a short comic that explains the Dvorak keyboard in more depth and tells you how to set it up on your computer.
+		</p>
+		<div class="summary">
+			<h3>Reasons to use Dvorak</h3>
+			<ul>
+				<li>Faster Typing Speeds</li>
+				<li>Improved Hand Health</li>
+				<li>Efficient Design</li>
+			</ul>
+			<table>
+				<thead>
+					<tr>
+						<td>Stat</td>
+						<td>Qwerty</td>
+						<td>Dvorak</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Time Spent on Home Row</td>
+						<td>28%</td>
+						<td>72%</td>
+					</tr>
+					<tr>
+						<td>Time Spent with Carpal Tunnel</td>
+						<td>65%</td>
+						<td>12%</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<form>
+			<h3>Please answer this quick survey</h3>
+			<p>Name</p>
+			<label for="first_name">First Name</label>
+			<input type="text" id="first_name" name="first_name">
+			<br>
+			<label for="last_name">Last Name</label>
+			<input type="text" id="last_name" name="last_name">
+
+			<p>Time spent on a computer daily</p>
+			<select name="time">
+				<option value="none">None</option>
+				<option value="less">Less than 1 hour</option>
+				<option value="more">More than 1 hour</option>
+			</select>
+
+			<p>Keyboard you are using</p>
+			<input type="radio" id="qwerty_use" name="keyboard" value="qwerty_use">
+			<label for="qwerty_use">Qwerty</label>
+			<input type="radio" id="dvorak_use" name="keyboard" value="dvorak_use">
+			<label for="dvorak_use">Dvorak</label>
+			<input type="radio" id="other_use" name="keyboard" value="other_use">
+			<label for="other_use">Other</label>
+
+			<p>Keyboards you have used</p>
+			<input type="checkbox" id="qwerty_have" name="keyboard" value="qwerty_have">
+			<label for="qwerty_have">Qwerty</label>
+			<input type="checkbox" id="dvorak_have" name="keyboard" value="dvorak_have">
+			<label for="dvorak_have">Dvorak</label>
+			<input type="checkbox" id="other_have" name="keyboard" value="other_have">
+			<label for="other_have">Other</label>
+			<br>
+
+			<input type="submit" value="Submit">
+		</form>
+	</body>
+</html>
