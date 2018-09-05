@@ -1,0 +1,68 @@
+# Move to folder
+cd <path>
+
+# Create file
+touch <file.name>
+
+# List folder contents
+ls
+
+# Move to the folder where you want to set up version control and type this to initialize a git repository
+git init
+
+# Move to the folder where you want to make a local copy of a repository and type this to clone it
+git clone <url>.git
+
+# Look at the current status of your files
+git status
+
+# Add a file (or all changed files with -A) to staging
+git add <file.name>/-A
+
+# Commit all staged files with a message
+git commit -m "message"
+
+# Remove a file from version control
+git rm -r <file.name>
+
+# List all branches
+git branch -a
+
+# Create a new branch
+git branch <branch.name>
+
+# Delete a branch
+git branch -d <branch.name>
+
+# Checkout a branch
+git checkout <branch.name>
+
+# Create and checkout a new branch
+git checkout -b <branch.name>
+
+# Merge a source branch into a target branch
+git merge <source> <target>
+
+# Push a branch to remote
+git push origin <branch.name>
+
+# Push a branch to remote and then remember that remote location
+git push -u origin <branch.name>
+
+# Push to a remembered remote
+git push
+
+# Update to newest commit
+git pull
+
+# Pull from specific branch
+git pull origin <branch.name>
+
+# Add a remote repository
+git remote add origin <url>.git
+
+# View changes to files
+git log --summary
+
+# Compare two branches
+git diff <source> <target>
