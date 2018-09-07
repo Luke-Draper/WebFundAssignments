@@ -48,15 +48,31 @@ footer {
 	background-image: linear-gradient(to right, #EEE, white, #EEE);
 }
 .text-box {
-	width: 450px;
 	display: inline-block;
 	vertical-align: top;
 	background-color: #EEE;
 	background-image: linear-gradient(to right,white, #EEE);
 }
-.text-box h3, .text-box h2 {
+.text-box h4, .text-box h3, .text-box h2 {
 	background-image: linear-gradient(#BBB, grey, #BBB);
 }
 .about-section .text-box {
 	height: 300px;
+	width: 450px;
+}
+.project-section .text-box {
+	height: 300px;
+	width: 270px;
+}
+img.text-box-img {
+	width: 270px;
+}
+.logo-box {
+	width: 270px;
+	margin: 2px 10px;
+	display: inline-block;
+}
+.logo-box img {
+	width: 40px;
+	margin: 3px;
 }
