@@ -61,8 +61,8 @@ footer {
 	width: 450px;
 }
 .project-section .text-box {
-	height: 300px;
 	width: 270px;
+	
 }
 img.text-box-img {
 	width: 270px;
@@ -75,4 +75,7 @@ img.text-box-img {
 .logo-box img {
 	width: 40px;
 	margin: 3px;
+}
+.project-section .text-box p {
+	min-height: 180px;
 }
