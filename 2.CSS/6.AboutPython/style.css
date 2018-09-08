@@ -16,5 +16,64 @@
 	border: 2px dotted #464646;
 }
 h1 {
-	display: hidden;
+	position: absolute;
+	visibility: hidden;
+}
+body {
+	width: 960px;
+	margin: 0 auto;
+}
+header img, header div *, header div {
+	border: none;
+}
+header img {
+	display: inline-block;
+	height: 120px;
+	width: 460px;
+}
+header div {
+	vertical-align: top;
+	display: inline-block;
+	width: 400px;
+	margin-top: 10px;
+}
+header div p {
+	font-size: 80%;
+	margin-left: 80px;
+}
+header div p a {
+	color: #aea313;
+}
+header div p em {
+	color: #0f161e;
+}
+input[type=text] {
+	border-top: 2px solid #999999;
+	border-left: 2px solid #999999;
+	border-bottom: 2px solid #ffffff;
+	border-right: 2px solid #ffffff;
+	background-color: #ffffff;
+	color: #d5d5d5;
+	box-shadow: 2px 2px 2px #2f2f2f;
+}
+header form {
+	background-color: #464646;
+	box-shadow: 3px 3px 3px #2f2f2f;
+	border-radius: 10px;
+	width: 60px;
+}
+header form input[type=text] {
+	width: 140px;
+	height: 30px;
+	font-size: 80%;
+}
+header form input[type=submit] {
+	width: 40px;
+	border-radius: 5px;
+	border-bottom: 2px solid #999999;
+	border-right: 2px solid #999999;
+	border-top: 2px solid #ffffff;
+	border-left: 2px solid #ffffff;
+	height: 30px;
+	box-shadow: 2px 2px 2px #2f2f2f;
 }
