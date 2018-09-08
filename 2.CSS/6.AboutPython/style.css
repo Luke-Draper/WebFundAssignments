@@ -10,7 +10,11 @@
 	margin: 0;
 	background-color: #324f75;
 	color: #e0e0e0;
+	text-align: center;
 }
 * {
 	border: 2px dotted #464646;
+}
+h1 {
+	display: hidden;
 }
