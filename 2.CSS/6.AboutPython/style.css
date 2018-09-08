@@ -8,7 +8,9 @@
 	outline: 0;
 	padding: 0;
 	margin: 0;
+	background-color: #324f75;
+	color: #e0e0e0;
 }
 * {
-	border: 2px dotted red;
+	border: 2px dotted #464646;
 }
