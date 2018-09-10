@@ -8,6 +8,8 @@
 	outline: 0;
 	padding: 0;
 	margin: 0;
+	text-decoration: none;
+	color: #444;
 }
 * {
 	border: 2px dotted red;
@@ -15,4 +17,45 @@
 .container-center {
 	margin: 0 auto;
 	width: 960px;
+}
+.blue-text {
+	color: #4574ae;
+}
+.lightblue-text {
+	color: #04aeda;
+}
+.red-text {
+	color: red;
+}
+.bold-text {
+	color: #222;
+	font-weight: 900;
+}
+header img {
+	position: absolute;
+	height: 100px;
+}
+header h1 {
+	position: relative;
+	font-size: 50px;
+	left: 90px;
+	top: 20px;
+}
+header h2 {
+	margin-top: 20px;
+	font-size: 40px;
+	padding: 10px;
+	color: white;
+	background-image: linear-gradient(#4574ae, #04aeda, #4574ae);
+}
+.side-sec {
+	display: inline-block;
+	width: 200;
+	margin-right: 40px;
+	vertical-align: top;
+}
+.main-sec {
+	display: inline-block;
+	width: 720;
+	vertical-align: top;
 }
