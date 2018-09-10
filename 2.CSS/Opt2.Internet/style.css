@@ -129,3 +129,39 @@ header h2 {
 	width: 80%;
 	margin: 10px 0;
 }
+.home-sec {
+	display: inline-block;
+	width: 70px;
+	margin-top: 10px;
+	vertical-align: top;
+}
+.home-sec img {
+	height: 25px;
+}
+.home-sec p {
+	display: inline-block;
+	font-size: 120%;
+	height: 30px;
+}
+.phone-sec {
+	display: inline-block;
+	width: 350px;
+	margin-left: 200px;
+	margin-top: 10px;
+	vertical-align: top;
+}
+.phone-sec img {
+	display: inline-block;
+	width: 80px;
+}
+.phone-sec p {
+	display: inline-block;
+	color: #aaa;
+	font-size: 60%;
+	vertical-align: top;
+}
+.phone-sec h3 {
+	display: inline-block;
+	font-size: 120%;
+	vertical-align: top;
+}
