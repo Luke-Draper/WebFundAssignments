@@ -145,14 +145,14 @@ header h2 {
 }
 .phone-sec {
 	display: inline-block;
-	width: 350px;
-	margin-left: 200px;
+	width: 193px;
+	margin-left: 422px;
 	margin-top: 10px;
 	vertical-align: top;
 }
 .phone-sec img {
 	display: inline-block;
-	width: 80px;
+	width: 60px;
 }
 .phone-sec p {
 	display: inline-block;
@@ -162,6 +162,46 @@ header h2 {
 }
 .phone-sec h3 {
 	display: inline-block;
-	font-size: 120%;
+	font-size: 130%;
+	font-weight: 700;
+	vertical-align: top;
+}
+.phone-sec div {
+	display: inline-block;
+	width: 128px;
+	vertical-align: top;
+}
+.top-main {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #666666;
+	margin-bottom: 20px;
+}
+div h3 {
+	color: #4574ae;
+	font-size: 130%;
+	font-weight: 700;
+}
+div ol, div ul {
+	margin-left: 50px;
+}
+.mid-main p, .mid-main li, .bot-main p, .bot-main li {
+	margin: 10px;
+}
+.mid-main img {
+	width: 40%;
+	margin: 20px 0 20px 30%;
+}
+.bot-main {
+	padding: 10px;
+	border: 5px solid #4574ae;
+	box-shadow: 3px 3px 3px #444;
+}
+.bot-main img {
+	margin: 10px;
+	width: 20%;
+}
+.bot-main div {
+	display: inline-block;
+	width: 70%;
 	vertical-align: top;
 }
