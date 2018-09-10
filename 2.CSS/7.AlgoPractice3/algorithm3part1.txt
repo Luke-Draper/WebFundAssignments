@@ -5,7 +5,7 @@ function a(x,y){
 console.log(a(5,5))
 
 Prediction:5
-Output:
+Output:Correct
 
 
 Challenge 2.
@@ -22,7 +22,7 @@ console.log(b);
 console.log(a(6,8));
 
 Prediction:[2,2,5],[2,2,5],[6,8,5],[6,8,5]
-Output:
+Output:Correct
 
 
 Challenge 3.
@@ -39,7 +39,7 @@ y.push(5);
 console.log(y);
 
 Prediction:[2,2,5]
-Output:
+Output:Correct
 
 
 Challenge 4.
@@ -55,21 +55,21 @@ b = a([2,3,4,5])
 console.log(b);
 
 Prediction:true
-Output:
+Output:Correct
 
 
 Challenge 5.
 function a(x){
     for(var i=0; i<x.length; i++){
       if(x[i] > 0){
-           x[i] = “Coding”
+           x[i] = “Coding”;
       }
   }
 }
-console.log(a([1,2,3,4]))
+console.log(a([1,2,3,4]));
 
 Prediction:["Coding","Coding","Coding","Coding"]
-Output:
+Output:JSBin Couldn't run this code
 
 
 Challenge 6.
@@ -86,7 +86,7 @@ function a(x){
 console.log(a([5,7,-1,4]))
 
 Prediction:[5,"Coding","Dojo",4]
-Output:
+Output:JSBin Couldn't run this code
 
 
 Challenge 7.
@@ -100,7 +100,7 @@ b = a([5,10])
 console.log(b);
 
 Prediction:10
-Output:
+Output:Correct
 
 
 Challenge 8.
@@ -114,4 +114,4 @@ function sum(x){
 }
 
 Prediction:...nothing is output. console.log is never called
-Output:
+Output:Correct

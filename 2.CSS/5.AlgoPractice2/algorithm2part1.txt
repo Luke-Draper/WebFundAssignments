@@ -7,7 +7,7 @@ b = multiply(2,3);
 console.log(b);
 
 Prediction:2,3,undefined
-Output:
+Output:Correct
 
 
 Challenge 2.
@@ -19,7 +19,7 @@ console.log(b);
 console.log(multiply(5,2));
 
 Prediction:6,10
-Output:
+Output:Correct
 
 
 Challenge 3.
@@ -31,7 +31,7 @@ for(var i=0; i<5; i++)
 }
 
 Prediction:3,7
-Output:
+Output:Correct
 
 
 Challenge 4.
@@ -46,7 +46,7 @@ awesome();
 console.log(x);
 
 Prediction:15,15,10,15
-Output:
+Output:Correct
 
 
 Challenge 5.
@@ -55,7 +55,7 @@ for(var i=0; i<15; i+=2){
 }
 
 Prediction:0,2,4,6,8,10,12,14
-Output:
+Output:Correct
 
 Challenge 6.
 for(var i=0; i<3; i++){
@@ -65,7 +65,7 @@ for(var i=0; i<3; i++){
 }
 
 Prediction:0,0,0,1,0,2
-Output:
+Output:Correct
 
 
 Challenge 7.
@@ -80,7 +80,7 @@ z = looping(3,3);
 console.log(z);
 
 Prediction:0,0,0,0,1,2,0,2,4,undefined
-Output:
+Output:Correct
 
 
 Challenge 8.
@@ -96,4 +96,4 @@ z = looping(3,5);
 console.log(z);
 
 Prediction:0,0,0,0,0,0,1,2,3,4,0,2,4,6,8,15
-Output:
+Output:Correct
