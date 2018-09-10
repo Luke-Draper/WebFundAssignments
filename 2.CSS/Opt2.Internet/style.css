@@ -11,9 +11,9 @@
 	text-decoration: none;
 	color: #444;
 }
-* {
+/* {
 	border: 2px dotted red;
-}
+} */
 .container-center {
 	margin: 0 auto;
 	width: 960px;
@@ -50,12 +50,82 @@ header h2 {
 }
 .side-sec {
 	display: inline-block;
-	width: 200;
+	width: 190px;
 	margin-right: 40px;
 	vertical-align: top;
 }
 .main-sec {
 	display: inline-block;
-	width: 720;
+	width: 720px;
 	vertical-align: top;
+}
+.side-top {
+	display: inline-block;
+	width: 200px;
+	font-size: 80%;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #666666;
+	margin-bottom: 20px;
+}
+.side-top h3 {
+	margin-top: 20px;
+	font-size: 120%;
+}
+.side-top p {
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+.button {
+	display: inline-block;
+	color: white;
+	font-size: 110%;
+	padding: 10px;
+	background-color: black;
+	border-radius: 10px;
+	box-shadow: 3px 3px 3px #444;
+	width: 90%;
+	font-weight: 700;
+	text-align: center;
+	margin: 4px;
+}
+.small-button {
+	display: inline-block;
+	color: white;
+	padding: 10px;
+	background-color: black;
+	border-radius: 10px;
+	box-shadow: 3px 3px 3px #444;
+	width: 70%;
+	font-weight: 700;
+	text-align: center;
+	margin: 4px;
+}
+.button.blue-button {
+	background-color: #4574ae;
+}
+.small-button.lightblue-button {
+	background-color: #04aeda;
+}
+.button.orange-button {
+	background-color: #ffaf3f;
+}
+.op-1-3 {
+	color: rgba(255, 255, 255, 0.3);
+}
+.op-2-3 {
+	color: rgba(255, 255, 255, 0.6);
+}
+.adv {
+	width: 180px;
+	text-align: center;
+	padding: 20px 15px;
+	background-image: url("images/ad_background.png");
+}
+.adv p {
+	color: white;
+	font-size: 125%;
+}
+.adv img {
+	width: 80%;
+	margin: 10px 0;
 }
