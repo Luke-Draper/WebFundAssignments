@@ -1,0 +1,96 @@
+* { /* CSS Reset */
+	vertical-align: baseline;
+	font-weight: inherit;
+	font-family: sans-serif;
+	font-style: inherit;
+	font-size: 100%;
+	border: 0 none;
+	outline: 0;
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+	color: #222;
+}
+body {
+	padding: 20px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-areas: 
+	  "header header header header"
+	  "sidebar main main main"
+	  ". main main main";
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+	grid-template-rows: auto;
+}
+header {
+	background-color: green;
+	grid-area: header;
+	min-height: 80px;
+}
+.sidebar {
+	background-color: blue;
+	grid-area: sidebar;
+	min-height: 80px;
+}
+.main {
+	background-color: red;
+	padding: 20px;
+	grid-area: main;
+	min-height: 80px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-areas: 
+	  "sec-1 sec-2 sec-3"
+	  "footer footer footer";
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+	grid-template-rows: auto;
+}
+.sec {
+	background-color: yellow;
+	min-height: 80px;
+}
+.sec-1 {
+	grid-area: sec-1;
+}
+.sec-2 {
+	grid-area: sec-2;
+}
+.sec-3 {
+	grid-area: sec-3;
+}
+.footer {
+	background-color: purple;
+	grid-area: footer;
+	min-height: 80px;
+}
+@media only screen and (max-width: 1023px){
+	.main {
+		grid-template-columns: 1fr 1fr;
+		grid-template-areas: 
+			"sec-1 sec-2"
+			"sec-3 ."
+			"footer footer";
+	}
+	body {
+		grid-template-columns: 1fr;
+		grid-template-areas: 
+			"header"
+			"main";
+	}
+	.sidebar {
+		position: absolute;
+		visibility: hidden;
+	}
+}
+@media only screen and (max-width: 480px){
+	.main {
+		grid-template-columns: 1fr;
+		grid-template-areas: 
+			"sec-1"
+			"sec-2"
+			"sec-3"
+			"footer";
+	}
+}
