@@ -41,13 +41,51 @@ function fibonacciNonRec(index) {
 console.log(fibonacciNonRec(5));
 
 // Array: Second-to-Last: Return the second-to-last element of an array. Given [42, true, 4, "Liam", 7], return "Liam".  If array is too short, return null.
+function secondToLast(arr) {
+	if (arr.length<=1) {
+		return null;
+	}
+	return arr[arr.length-2];
+}
+console.log(secondToLast([1,2,3,4]));
 
 // Array: Nth-to-Last: Return the element that is N-from-array's-end.  Given ([5,2,3,6,4,9,7],3), return 4.  If the array is too short, return null.
+function nthToLast(arr,n) {
+	if (arr.length<n) {
+		return null;
+	}
+	return arr[arr.length-n];
+}
+console.log(nthToLast([1,2,3,4],3));
 
 // Array: Second-Largest: Return the second-largest element of an array. Given [42,1,4,3.14,7], return 7.  If the array is too short, return null.
+function secondLargest(arr) {
+	if (arr.length<=1) {
+		return null;
+	}
+	var max = arr[0];
+	var nex = null;
+	for (var i=0; i<arr.length; i++) {
+		if (arr[i]>max) {
+			max=arr[i];
+		}
+		if ((arr[i]<max&&nex==null)||(arr[i]<max&&arr[i]>nex)) {
+			nex=arr[i];
+		}
+	}
+	return nex;
+}
+console.log(secondLargest([42,1,4,3.14,7]));
 
 // Double Trouble: Create a function that changes a given array to list each existing element twice, retaining original order.
 // Convert [4, "Ulysses", 42, false] to [4,4, "Ulysses", "Ulysses", 42, 42, false, false].
+function doubleArray(arr) {
+	for (var i=arr.length-1; i>=0; i--) {
+		arr.splice(i, 0, arr[i]);
+	}
+	return arr;
+}
+console.log(doubleArray([42,1,4,3.14,7]));
 
 // Create a function Fib(n) where it returns the nth Fibonacci number.  Use recursion for this.
 function fibonacciRec(index) {
@@ -61,4 +99,4 @@ function fibonacciRec(index) {
 }
 console.log(fibonacciRec(5));
 
-// Recursive Fill
+// Recursive Fill - See index.html
