@@ -1,0 +1,84 @@
+* { /* CSS Reset */
+	vertical-align: baseline;
+	font-weight: inherit;
+	font-family: sans-serif;
+	font-style: inherit;
+	font-size: 100%;
+	border: 0 none;
+	outline: 0;
+	padding: 0;
+	margin: 0;
+}
+body {
+	margin: 20px;
+	padding: 20px;
+	display: grid;
+	align-items: center;
+	grid-column-gap: 5px;
+	grid-row-gap: 5px;
+	grid-template-rows: auto;
+	grid-template-columns: 1fr 1fr 1fr auto 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-areas:
+		"t0 t1  t2  .   t3  t4  t5  t6  t7  t8  t9  t10 t11 t12 t13 t14 t15 t16 t17 t18"
+		"s1 e1  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   e2"
+		"s2 e3  e4  .   .   .   .   .   .   .   .   .   .   .   e5  e6  e7  e8  e9  e10"
+		"s3 e11 e12 .   .   .   .   .   .   .   .   .   .   .   e13 e14 e15 e16 e17 e18"
+		"s4 e19 e20 .   e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 e32 e33 e34 e35 e36"
+		"s5 e37 e38 .   e39 e40 e41 e42 e43 e44 e45 e46 e47 e48 e49 e50 e51 e52 e53 e54"
+		"s6 e55 e56 .   e71 e72 e73 e74 e75 e76 e77 e78 e79 e80 e81 e82 e83 e84 e85 e86"
+		"s7 e87 e88 .   e103 e104 e105 e106 e107 e108 e109 e110 e111 e112 e113 e114 e115 e116 e117 e118"
+		".  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   ."
+		".  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   ."
+		".  .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   ."
+		".  lan lan as1 e57 e58 e59 e60 e61 e62 e63 e64 e65 e66 e67 e68 e69 e70 .   ."
+		".  act act as2 e89 e90 e91 e92 e93 e94 e95 e96 e97 e98 e99 e100 e101 e102 .   .";
+}
+.legend {
+	font-size: 60%;
+	color: red;
+	text-align: center;
+}
+.elem-square {
+	font-size: 70%;
+	padding: 2px;
+	background-color: lightgrey;
+	border: 1px solid grey;
+	color: #222;
+	text-align: center;
+}
+.elem-square h2 {
+	color: #222;
+	margin: 5px 0;
+	font-weight: 700;
+	font-size: 80%;
+}
+.y {
+	background-color: goldenrod;
+}
+.r {
+	background-color: lightcoral;
+}
+.g {
+	background-color: lawngreen;
+}
+.b {
+	background-color: lightskyblue;
+}
+/* I generated this with this script 
+var out="";
+for (var i=0; i<=18; i++) {
+  out+=(".t"+i+"{grid-area:t"+i+";}");
+}
+for (var i=1; i<=7; i++) {
+  out+=(".s"+i+"{grid-area:s"+i+";}");
+}
+for (var i=1; i<=118; i++) {
+  out+=(".e"+i+"{grid-area:e"+i+";}");
+}
+out+=(".lan{grid-area:lan;}");
+out+=(".act{grid-area:act;}");
+out+=(".as1{grid-area:as1;}");
+out+=(".as2{grid-area:as2;}");
+console.log(out);
+*/
+.t0{grid-area:t0;}.t1{grid-area:t1;}.t2{grid-area:t2;}.t3{grid-area:t3;}.t4{grid-area:t4;}.t5{grid-area:t5;}.t6{grid-area:t6;}.t7{grid-area:t7;}.t8{grid-area:t8;}.t9{grid-area:t9;}.t10{grid-area:t10;}.t11{grid-area:t11;}.t12{grid-area:t12;}.t13{grid-area:t13;}.t14{grid-area:t14;}.t15{grid-area:t15;}.t16{grid-area:t16;}.t17{grid-area:t17;}.t18{grid-area:t18;}.s1{grid-area:s1;}.s2{grid-area:s2;}.s3{grid-area:s3;}.s4{grid-area:s4;}.s5{grid-area:s5;}.s6{grid-area:s6;}.s7{grid-area:s7;}.e1{grid-area:e1;}.e2{grid-area:e2;}.e3{grid-area:e3;}.e4{grid-area:e4;}.e5{grid-area:e5;}.e6{grid-area:e6;}.e7{grid-area:e7;}.e8{grid-area:e8;}.e9{grid-area:e9;}.e10{grid-area:e10;}.e11{grid-area:e11;}.e12{grid-area:e12;}.e13{grid-area:e13;}.e14{grid-area:e14;}.e15{grid-area:e15;}.e16{grid-area:e16;}.e17{grid-area:e17;}.e18{grid-area:e18;}.e19{grid-area:e19;}.e20{grid-area:e20;}.e21{grid-area:e21;}.e22{grid-area:e22;}.e23{grid-area:e23;}.e24{grid-area:e24;}.e25{grid-area:e25;}.e26{grid-area:e26;}.e27{grid-area:e27;}.e28{grid-area:e28;}.e29{grid-area:e29;}.e30{grid-area:e30;}.e31{grid-area:e31;}.e32{grid-area:e32;}.e33{grid-area:e33;}.e34{grid-area:e34;}.e35{grid-area:e35;}.e36{grid-area:e36;}.e37{grid-area:e37;}.e38{grid-area:e38;}.e39{grid-area:e39;}.e40{grid-area:e40;}.e41{grid-area:e41;}.e42{grid-area:e42;}.e43{grid-area:e43;}.e44{grid-area:e44;}.e45{grid-area:e45;}.e46{grid-area:e46;}.e47{grid-area:e47;}.e48{grid-area:e48;}.e49{grid-area:e49;}.e50{grid-area:e50;}.e51{grid-area:e51;}.e52{grid-area:e52;}.e53{grid-area:e53;}.e54{grid-area:e54;}.e55{grid-area:e55;}.e56{grid-area:e56;}.e57{grid-area:e57;}.e58{grid-area:e58;}.e59{grid-area:e59;}.e60{grid-area:e60;}.e61{grid-area:e61;}.e62{grid-area:e62;}.e63{grid-area:e63;}.e64{grid-area:e64;}.e65{grid-area:e65;}.e66{grid-area:e66;}.e67{grid-area:e67;}.e68{grid-area:e68;}.e69{grid-area:e69;}.e70{grid-area:e70;}.e71{grid-area:e71;}.e72{grid-area:e72;}.e73{grid-area:e73;}.e74{grid-area:e74;}.e75{grid-area:e75;}.e76{grid-area:e76;}.e77{grid-area:e77;}.e78{grid-area:e78;}.e79{grid-area:e79;}.e80{grid-area:e80;}.e81{grid-area:e81;}.e82{grid-area:e82;}.e83{grid-area:e83;}.e84{grid-area:e84;}.e85{grid-area:e85;}.e86{grid-area:e86;}.e87{grid-area:e87;}.e88{grid-area:e88;}.e89{grid-area:e89;}.e90{grid-area:e90;}.e91{grid-area:e91;}.e92{grid-area:e92;}.e93{grid-area:e93;}.e94{grid-area:e94;}.e95{grid-area:e95;}.e96{grid-area:e96;}.e97{grid-area:e97;}.e98{grid-area:e98;}.e99{grid-area:e99;}.e100{grid-area:e100;}.e101{grid-area:e101;}.e102{grid-area:e102;}.e103{grid-area:e103;}.e104{grid-area:e104;}.e105{grid-area:e105;}.e106{grid-area:e106;}.e107{grid-area:e107;}.e108{grid-area:e108;}.e109{grid-area:e109;}.e110{grid-area:e110;}.e111{grid-area:e111;}.e112{grid-area:e112;}.e113{grid-area:e113;}.e114{grid-area:e114;}.e115{grid-area:e115;}.e116{grid-area:e116;}.e117{grid-area:e117;}.e118{grid-area:e118;}.lan{grid-area:lan;}.act{grid-area:act;}.as1{grid-area:as1;}.as2{grid-area:as2;}
