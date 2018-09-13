@@ -1,0 +1,706 @@
+<html>
+	<head>
+		<title>Airplane</title>
+		<style type="text/css">
+
+* {
+	margin: 0;
+	padding: 0;
+	line-height: 0;
+}
+html {
+	background-color: black;
+}
+#score-container {
+	background-color: black;
+	position: absolute;
+	top: 0;
+}
+#score {
+	position: absolute;
+	top: 30;
+	font-family: monospace;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+}
+#help-container {
+	background-color: black;
+	position: absolute;
+	top: 0;
+}
+#help {
+	position: absolute;
+	top: 30;
+	font-family: monospace;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+}
+/* personal assets obtained from https://kenney.nl/assets/topdown-tanks-redux */
+#game {
+	background-color: white;
+	position: absolute;
+	top: 40;
+	left: 80;
+	overflow: hidden;
+}
+@keyframes slide {
+  0%{
+    transform: translateY(-128px);
+  }
+  100%{
+    transform: translateY(0);
+  }
+}
+#ocean {
+	background-image: url("img/ocean.jpg");
+	background-size: contain;
+}
+#player {
+	position: absolute;
+	background-image: url("img/player.png");
+	background-size: cover;
+}
+.enemy {
+	position: absolute;
+	background-image: url("img/enemy.png");
+	background-size:cover;
+}
+.bullet {
+	position: absolute;
+}
+.bullet.player-launcher{
+	background-color: rgb(60, 148, 177);
+}
+.bullet.enemy-launcher{
+	background-color: rgb(114, 25, 25);
+}
+.missile {
+	position: absolute;
+	border: 1px, solid, darkslategrey;
+}
+.missile.player-launcher{
+	background-color: rgb(20, 75, 94);
+}
+.missile.enemy-launcher{
+	background-color: rgb(114, 25, 25);
+}
+.pickup {
+	position: absolute;
+}
+.pickup.health-pickup{
+	background-color: rgb(211, 101, 124);
+}
+.pickup.missile-pickup{
+	background-color: rgb(70, 110, 184);
+}
+
+		</style>
+	</head>
+	<body>
+		<div id="game">
+			<div id="ocean"></div>
+			<div id="players">
+				<div id="player" class="tile"></div>
+			</div>
+			<div id="enemies">
+				<div class="enemy tile"></div>
+			</div>
+			<div id="bullets"></div>
+			<div id="missiles"></div>
+			<div id="pickups"></div>
+		</div>
+		<div id="score-container">
+			<div id="score">: Highscore &bull; 2000 : Score &bull; 0 : Health &bull; 100 : Missiles &bull; 5 :</div>
+		</div>
+		<div id="help-container">
+			<div id="help">: Move &bull; ← → ↑ ↓ : Shoot &bull; Space : Missile &bull; X :</div>
+		</div>
+		<script type="text/javascript">
+
+/* Settings */
+
+const PERSONAL_GRAPHICS = true;
+const SCALE_FACTOR = 2.4; //larger number scales images down more. I prefer 1.8 - 2.4
+const GAME_TICK_TIME = 4;
+const GAME_START_DELAY = 200;
+const PLAYER_SPEED = 2;
+const PLAYER_STARTING_HEALTH = 100;
+const PLAYER_INVULNERABILITY_TIME = 50;
+const PLAYER_BULLET_FIRING_RATE = 50; //Number of ticks before the next bullet can be fired
+const PLAYER_BULLET_DAMAGE = 5;
+const PLAYER_BULLET_SPEED = 2;
+const PLAYER_STARTING_MISSILES = 5;
+const PLAYER_MISSILE_FIRING_RATE = 250; //Number of ticks before the next bullet can be fired
+const PLAYER_MISSILE_DAMAGE = 30;
+const PLAYER_MISSILE_SPEED = 4;
+const ENEMY_SPAWN_RATE = 500;
+const ENEMY_SPEED = 5;
+const ENEMY_SPAWN_FIRING_DELAY = 250;
+const ENEMY_STARTING_HEALTH = 20;
+const ENEMY_BULLET_FIRING_RATE = 200; //Number of ticks before the next bullet is fired
+const ENEMY_BULLET_DAMAGE = 3;
+const ENEMY_BULLET_SPEED = 2;
+const ENEMY_COLLISION_DAMAGE = 90;
+const ENEMY_SCORE = 150;
+const STARTING_ENEMIES = 3;
+const MAX_ENEMIES = 7;
+const SCORE_COUNT_SPEED = 100;
+const PICKUP_SPEED = 0.3;
+
+/* Constants */
+
+const MARGIN = 60;
+const xTiles = 9*SCALE_FACTOR; //multiple of nine
+const yTiles = 7*SCALE_FACTOR; //multiple of seven
+
+/* Variables */
+
+var score = 0;
+var scoreTimer = 0;
+var highscore = 2000;
+var tileSize = 20;
+var bulletWidth = 2;
+var bulletHeight = 5;
+var missileWidth = 3;
+var missileHeight = 8;
+var pickupWidth = 2;
+var pickupHeight = 5;
+var gameWidth = 900, gameHeight = 700;
+var gameCornerX = 0, gameCornerY = 0;
+var upPressed = false;
+var downPressed = false;
+var leftPressed = false;
+var rightPressed = false;
+var bulletPressed = false;
+var missilePressed = false;
+var player = {
+	left: gameWidth/2,
+	top: gameHeight*2/3,
+	moveTimer: 0,
+	bulletTimer: 0,
+	missileTimer: 0,
+	isInvulnerable: false,
+	invulnerabilityTimer: 0,
+	health: PLAYER_STARTING_HEALTH,
+	missiles: PLAYER_STARTING_MISSILES
+}
+var enemyArray  = [
+	{left: gameWidth/3, top: gameHeight/3, moveTimer: 0, bulletTimer: 0, health: 20},
+];
+var enemySpawnTimer = 0;
+var bulletArray = [
+	{left: 0, top: 0, speed: 2, launcher: 'player', damage: 3}
+];
+var missileArray = [
+	{left: 0, top: 0, speed: 2, launcher: 'player', damage: 3}
+];
+var pickupArray = [
+	{left: 0, top: 0, speed: 1, type: 'health', amount: 5}
+];
+var gameTime = 0;
+var timer = null;
+
+/* Setup Functions */
+
+function alignGame() {
+	var screenHeight = window.innerHeight;
+	var screenWidth = window.innerWidth;
+	if (screenWidth*9<screenHeight*7) {
+		gameWidth = screenWidth - 2*MARGIN;
+		gameHeight = gameWidth*7/9;
+	} else {
+		gameHeight = screenHeight - 2*MARGIN;
+		gameWidth = gameHeight*9/7;
+	}
+	if (screenWidth*9<screenHeight*7) {
+		var marginVal = Math.floor((screenHeight - gameHeight)/2);
+		gameCornerX = MARGIN;
+		gameCornerY = marginVal;
+	} else {
+		var marginVal = Math.floor((screenWidth - gameWidth)/2);
+		gameCornerX = marginVal;
+		gameCornerY = MARGIN;
+	}
+	updateCSS();
+	tileSize = Math.floor(Math.min(gameWidth/xTiles, gameHeight/yTiles));
+	bulletWidth = tileSize*2/20;
+	bulletHeight = tileSize*5/20;
+	missileWidth = tileSize*3/20;
+	missileHeight = tileSize*8/20;
+	pickupWidth = tileSize*6/20;
+	pickupHeight = tileSize*6/20;
+}
+alignGame(); //Run once when the window is loaded. This is a code snippet from my Ninja Man Project located here : https://github.com/Luke-Draper/CodingDojo-NinjaManProject
+function updateCSS() {
+	document.getElementById("game").style.left = gameCornerX + "px";
+	document.getElementById("game").style.top = gameCornerY + "px";
+	document.getElementById("score-container").style.left = gameCornerX + "px";
+	document.getElementById("score-container").style.width = gameWidth + "px";
+	document.getElementById("score-container").style.height = gameCornerY + "px";
+	document.getElementById("score").style.width = gameWidth + "px";
+	document.getElementById("score").style.height = gameCornerY + "px";
+	document.getElementById("score").style.top = gameCornerY/2 + "px";
+	document.getElementById("help-container").style.left = gameCornerX + "px";
+	document.getElementById("help-container").style.width = gameWidth + "px";
+	document.getElementById("help-container").style.height = gameCornerY + "px";
+	document.getElementById("help-container").style.top = (gameCornerY + gameHeight) + "px";
+	document.getElementById("help").style.width = gameWidth + "px";
+	document.getElementById("help").style.height = gameCornerY/2 + "px";
+	document.getElementById("help").style.top = gameCornerY/2 + "px";
+	document.getElementById("game").style.width = gameWidth + "px";
+	document.getElementById("game").style.height = gameHeight + "px";
+	document.getElementById("ocean").style.width = gameWidth + "px";
+	document.getElementById("ocean").style.height = (gameHeight+128) + "px";
+	if (PERSONAL_GRAPHICS) {
+		document.getElementById("ocean").style.backgroundImage = 'url("img/tileGrass1.png")';
+		document.getElementById("ocean").style.backgroundSize = 'auto';
+		document.getElementById("ocean").style.animation = "slide 4s linear infinite";
+	}
+}
+
+function initializeGame() {
+	if (timer != null) {
+		window.clearInterval(timer);
+		timer = null;
+	}
+	resetGame();
+	for (var i=0; i<STARTING_ENEMIES; i++) {
+		spawnEnemy();
+	}
+	timer = window.setInterval(gameTick, GAME_TICK_TIME);
+}
+function resetGame() {
+	gameTime = 0;
+	score = 0;
+	scoreTimer = 0;
+	enemySpawnTimer = 0;
+	player = {
+		left: gameWidth/2,
+		top: gameHeight*2/3,
+		moveTimer: 0,
+		bulletTimer: 0,
+		missileTimer: 0,
+		isInvulnerable: false,
+		invulnerabilityTimer: 0,
+		health: PLAYER_STARTING_HEALTH,
+		missiles: PLAYER_STARTING_MISSILES
+	}
+	enemyArray  = [];
+	enemySpawnTimer = 0;
+	bulletArray = [];
+	missileArray = [];
+	pickupArray = [];
+}
+
+
+/* Display Functions */
+
+function drawPlanes() {
+	drawPlayer();
+	drawEnemies();
+	updateTiles();
+	drawBullets();
+	drawMissiles();
+	drawPickups();
+}
+function drawPlayer() {
+	document.getElementById("player").style.left = (player.left - tileSize/2) + "px";
+	document.getElementById("player").style.top = player.top + "px";
+	if (PERSONAL_GRAPHICS) {
+		document.getElementById("player").style.backgroundImage = 'url("img/tank_blue.png")';
+	}
+}
+function drawEnemies() {
+	createEnemyElements();
+	var docEnemies = document.getElementsByClassName('enemy');
+	if (docEnemies.length != enemyArray.length) {
+		console.log("Enemy array mismatch");
+	}
+	for (var i = 0; i < Math.min(docEnemies.length, enemyArray.length); i++) {
+		docEnemies[i].style.left = (enemyArray[i].left - tileSize/2) + "px";
+		docEnemies[i].style.top = enemyArray[i].top + "px";
+		if (PERSONAL_GRAPHICS) {
+			docEnemies[i].style.backgroundImage = 'url("img/tank_dark.png")';
+		}
+	}
+}
+function createEnemyElements() {
+	var htmlOutput = "";
+	for (var i=0; i<enemyArray.length; i++) {
+		htmlOutput += "<div class='enemy tile'></div>";
+	}
+	document.getElementById("enemies").innerHTML = htmlOutput;
+}
+function updateTiles() {
+	var all = document.getElementsByClassName('tile');
+	for (var i = 0; i < all.length; i++) {
+		all[i].style.width = tileSize + "px";
+		all[i].style.height = tileSize + "px";
+	}
+}
+function drawBullets() {
+	createBulletElements();
+	var docBullets = document.getElementsByClassName('bullet');
+	if (docBullets.length != bulletArray.length) {
+		console.log("Bullet array mismatch");
+	}
+	for (var i = 0; i < Math.min(docBullets.length, bulletArray.length); i++) {
+		docBullets[i].style.left = (bulletArray[i].left - tileSize/2) + "px";
+		docBullets[i].style.top = bulletArray[i].top + "px";
+		docBullets[i].style.width = bulletWidth + "px";
+		docBullets[i].style.height = bulletHeight + "px";
+	}
+}
+function createBulletElements() {
+	var htmlOutput = "";
+	for (var i=0; i<bulletArray.length; i++) {
+		htmlOutput += "<div class='bullet " + bulletArray[i].launcher + "-launcher'></div>";
+	}
+	document.getElementById("bullets").innerHTML = htmlOutput;
+}
+function drawMissiles() {
+	createMissileElements();
+	var docMissiles = document.getElementsByClassName('missile');
+	if (docMissiles.length != missileArray.length) {
+		console.log("Missile array mismatch");
+	}
+	for (var i = 0; i < Math.min(docMissiles.length, missileArray.length); i++) {
+		docMissiles[i].style.left = (missileArray[i].left - tileSize/2) + "px";
+		docMissiles[i].style.top = missileArray[i].top + "px";
+		docMissiles[i].style.width = missileWidth + "px";
+		docMissiles[i].style.height = missileHeight + "px";
+	}
+}
+function createMissileElements() {
+	var htmlOutput = "";
+	for (var i=0; i<missileArray.length; i++) {
+		htmlOutput += "<div class='missile " + missileArray[i].launcher + "-launcher'></div>";
+	}
+	document.getElementById("missiles").innerHTML = htmlOutput;
+}
+function drawPickups() {
+	createPickupElements();
+	var docPickups = document.getElementsByClassName('pickup');
+	if (docPickups.length != pickupArray.length) {
+		console.log("Pickup array mismatch");
+	}
+	for (var i = 0; i < Math.min(docPickups.length, pickupArray.length); i++) {
+		docPickups[i].style.left = (pickupArray[i].left - tileSize/2) + "px";
+		docPickups[i].style.top = pickupArray[i].top + "px";
+		docPickups[i].style.width = pickupWidth + "px";
+		docPickups[i].style.height = pickupHeight + "px";
+	}
+}
+function createPickupElements() {
+	var htmlOutput = "";
+	for (var i=0; i<pickupArray.length; i++) {
+		htmlOutput += "<div class='pickup " + pickupArray[i].type + "-pickup'></div>";
+	}
+	document.getElementById("pickups").innerHTML = htmlOutput;
+}
+
+/* Interaction Functions */
+
+document.onkeydown = function(e) {
+	if(e.keyCode == 37) { // LEFT
+		leftPressed = true;
+	}
+	if (e.keyCode == 39) { // RIGHT
+		rightPressed = true;
+	}
+	if (e.keyCode == 38) { // UP
+		upPressed = true;
+	}
+	if (e.keyCode == 40) { // DOWN
+		downPressed = true;
+	}
+	if (e.keyCode == 32) { // SPACE - Fire Bullet
+		bulletPressed = true;
+	}
+	if (e.keyCode == 88) { // X - Fire Missile
+		missilePressed = true;
+	}
+}
+document.onkeyup = function(e) {
+	if(e.keyCode == 37) { // LEFT
+		leftPressed = false;
+	}
+	if (e.keyCode == 39) { // RIGHT
+		rightPressed = false;
+	}
+	if (e.keyCode == 38) { // UP
+		upPressed = false;
+	}
+	if (e.keyCode == 40) { // DOWN
+		downPressed = false;
+	}
+	if (e.keyCode == 32) { // SPACE - Fire Bullet
+		bulletPressed = false;
+	}
+	if (e.keyCode == 88) { // X - Fire Missile
+		missilePressed = false;
+	}
+}
+
+/* Game Loop Functions */
+
+function gameTick() {
+	if (player.health<=0) {
+		initializeGame();
+	}
+	if (gameTime >= GAME_START_DELAY) {
+		playerTick();
+		enemyTick();
+		bulletTick();
+		missileTick();
+		pickupTick();
+	}
+	drawPlanes();
+	scoreBoard();
+	gameTime++;
+	if (enemySpawnTimer>=ENEMY_SPAWN_RATE) {
+		spawnEnemy();
+	} else {
+		enemySpawnTimer++;
+	}
+}
+function playerTick() {
+	if (player.moveTimer>=PLAYER_SPEED) {
+		playerMove();
+	} else {
+		player.moveTimer++;
+	}
+	if (player.bulletTimer>=PLAYER_BULLET_FIRING_RATE) {
+		playerFireBullet();
+	} else {
+		player.bulletTimer++;
+	}
+	if (player.missiles>0 && player.missileTimer>=PLAYER_MISSILE_FIRING_RATE) {
+		playerFireMissile();
+	} else {
+		player.missileTimer++;
+	}
+}
+function playerMove() {
+	var skew = 0, scale = 1;
+	if(leftPressed && !(leftPressed && rightPressed)) { // LEFT
+		if (player.left > tileSize/2) {
+			player.left--;
+		}
+		skew = 0.1;
+		player.moveTimer = 0;
+	}
+	if (rightPressed && !(leftPressed && rightPressed)) { // RIGHT
+		if (player.left < gameWidth-tileSize/2) {
+			player.left++;
+		}
+		skew = -0.1;
+		player.moveTimer = 0;
+	}
+	if (upPressed && !(upPressed && downPressed)) { // UP
+		if (player.top > gameHeight/2+tileSize) {
+			player.top--;
+		}
+		if (!PERSONAL_GRAPHICS) {
+			scale = 1.1;
+		}
+		player.moveTimer = 0;
+	}
+	if (downPressed && !(upPressed && downPressed)) { // DOWN
+		if (player.top < gameHeight-(tileSize+5)) {
+			player.top++;
+		}
+		if (!PERSONAL_GRAPHICS) {
+			scale = 0.9;
+		}
+		player.moveTimer = 0;
+	}
+	document.getElementById("player").style.transform = "matrix(1, " + -skew + ", " + skew + ", " + scale + ", 0, 0)";
+}
+
+function playerFireBullet() {
+	if (bulletPressed) {
+		spawnBullet(player.left + tileSize/2 -bulletWidth/2, player.top - bulletHeight/2, -PLAYER_BULLET_SPEED, 'player', PLAYER_BULLET_DAMAGE);
+		player.bulletTimer = 0;
+	}
+}
+function playerFireMissile() {
+	if (missilePressed) {
+		spawnMissile(player.left + tileSize/2 - missileWidth/2, player.top - missileHeight/2, -PLAYER_MISSILE_SPEED, 'player', PLAYER_MISSILE_DAMAGE);
+		player.missileTimer = 0;
+		player.missiles--;
+	}
+}
+
+function enemyTick() {
+	for (var i = enemyArray.length-1; i>=0; i--) {
+		var en = enemyArray[i];
+		if (en.health<=0) {
+			if (Math.floor(Math.random() * 3) > 0) {
+				var type = 'health';
+				var am = 1+Math.floor(Math.random() * 10);
+				if (Math.floor(Math.random() * 2) > 0) {
+					type = 'missile';
+					am = Math.ceil(am/2);
+				}
+				spawnPickup(en.left+tileSize/2-pickupWidth/2,en.top+tileSize/2-pickupHeight/2,PICKUP_SPEED,type,am);
+			}
+			score += ENEMY_SCORE;
+			enemyArray.splice(i,1);
+			continue;
+		}
+		if (en.moveTimer>=ENEMY_SPEED) {
+			enemyMove(en);
+		} else {
+			en.moveTimer++;
+		}
+		if (en.bulletTimer>=ENEMY_BULLET_FIRING_RATE) {
+			enemyFireBullet(en);
+		} else {
+			en.bulletTimer++;
+		}
+		var ex1 = enemyArray[i].left;
+		var ex2 = enemyArray[i].left + tileSize;
+		var ey = enemyArray[i].top + tileSize;
+		if (ey >= player.top && ey <= player.top + tileSize && ((ex1 >= player.left && ex1 <= player.left + tileSize)||(ex2 >= player.left && ex2 <= player.left + tileSize))) {
+			player.health -= ENEMY_COLLISION_DAMAGE;
+			enemyArray.splice(i,1);
+			continue;
+		}
+		if (en.top>gameHeight+tileSize) {
+			enemyArray.splice(i,1);
+			continue;
+		}
+	}
+}
+function enemyMove(en) {
+	en.top += 1;
+	en.moveTimer = 0;
+}
+function enemyFireBullet(en) {
+	spawnBullet(en.left + tileSize/2, en.top+tileSize, ENEMY_BULLET_SPEED, 'enemy', ENEMY_BULLET_DAMAGE);
+	en.bulletTimer = 0;
+}
+
+function bulletTick() {
+	for (var i = bulletArray.length-1; i >= 0; i--) {
+		bulletArray[i].top += bulletArray[i].speed;
+		var centerX = bulletArray[i].left + bulletWidth/2;
+		var centerY = bulletArray[i].top + bulletHeight/2;
+		var spliced = false;
+		if (centerX >= player.left && centerX <= player.left + tileSize && centerY >= player.top && centerY <= player.top + tileSize) {
+			player.health -= bulletArray[i].damage;
+			bulletArray.splice(i,1);
+			spliced = true;
+		} else {
+			var temp = false;
+			for (var t = 0; t < enemyArray.length; t++) {
+				if (!temp && centerX >= enemyArray[t].left && centerX <= enemyArray[t].left + tileSize && centerY >= enemyArray[t].top && centerY <= enemyArray[t].top + tileSize) {
+					enemyArray[t].health -= bulletArray[i].damage;
+					bulletArray.splice(i,1);
+					spliced = true;
+					temp = true;
+				}
+			}
+		}
+		if (!spliced && (bulletArray[i].top <= gameCornerY + -2*tileSize || bulletArray[i].top >= gameCornerY + tileSize + gameHeight)) {
+			bulletArray.splice(i,1);
+		}
+	}
+}
+function missileTick() {
+	for (var i = missileArray.length-1; i >= 0; i--) {
+		missileArray[i].top += missileArray[i].speed;
+		var centerX = missileArray[i].left + missileWidth/2;
+		var centerY = missileArray[i].top + missileHeight/2;
+		var spliced = false;
+		if (centerX >= player.left && centerX <= player.left + tileSize && centerY >= player.top && centerY <= player.top + tileSize) {
+			player.health -= missileArray[i].damage;
+			missileArray.splice(i,1);
+			spliced = true;
+		} else {
+			var temp = false;
+			for (var t = 0; t < enemyArray.length; t++) {
+				if (!temp && centerX >= enemyArray[t].left && centerX <= enemyArray[t].left + tileSize && centerY >= enemyArray[t].top && centerY <= enemyArray[t].top + tileSize) {
+					enemyArray[t].health -= missileArray[i].damage;
+					missileArray.splice(i,1);
+					spliced = true;
+					temp = true;
+				}
+			}
+		} 
+		if (!spliced && (missileArray[i].top <= gameCornerY + -2*tileSize || missileArray[i].top >= gameCornerY + tileSize + gameHeight)) {
+			missileArray.splice(i,1);
+		}
+	}
+}
+function pickupTick() {
+	for (var i = pickupArray.length-1; i >= 0; i--) {
+		pickupArray[i].top += pickupArray[i].speed;
+		var centerX = pickupArray[i].left + pickupWidth/2;
+		var centerY = pickupArray[i].top + pickupHeight/2;
+		var spliced = false;
+		if (centerX >= player.left && centerX <= player.left + tileSize && centerY >= player.top && centerY <= player.top + tileSize) {
+			if (pickupArray[i].type == 'health') {
+				player.health+=pickupArray[i].amount;
+			} else if (pickupArray[i].type == 'missile') {
+				player.missiles+=pickupArray[i].amount;
+			}
+			pickupArray.splice(i,1);
+			spliced = true;
+		}
+		if (!spliced && (pickupArray[i].top <= gameCornerY - 2*tileSize || pickupArray[i].top >= gameCornerY + tileSize + gameHeight)) {
+			pickupArray.splice(i,1);
+		}
+	}
+}
+
+function scoreBoard() {
+	if (score > highscore) {
+		highscore = score;
+	}
+	if (scoreTimer>=SCORE_COUNT_SPEED) {
+		score++;
+		scoreTimer = 0;
+	} else {
+		scoreTimer++;
+	}
+	document.getElementById("score").innerHTML = ": Highscore &bull; " + highscore + " : Score &bull; " + score + " : Health &bull; " + player.health + " : Missiles &bull; " + player.missiles + " :";
+}
+function spawnEnemy() {
+	if (enemyArray.length<MAX_ENEMIES) {
+		var spawned = false;
+		while(!spawned){
+			var l = Math.floor(tileSize/2 + (Math.random() * (gameWidth-tileSize)));
+			var t = -Math.floor(tileSize + (Math.random() * 2 * tileSize));
+			var valid = true;
+			for (var i=0; i<enemyArray.length; i++) {
+				if (!valid && (l > enemyArray[i].left && l < enemyArray[i].left + tileSize)) {
+					valid = false;
+				}
+			}
+			if (valid) {
+				enemyArray.push({left: l, top: t, moveTimer: 0, bulletTimer: -ENEMY_SPAWN_FIRING_DELAY, health: ENEMY_STARTING_HEALTH});
+				spawned = true;
+				enemySpawnTimer = 0;
+			}
+		}
+	}
+}
+function spawnBullet(l, t, s, la, d) {
+	bulletArray.push({left: l, top: t, speed: s, launcher: la, damage: d});
+}
+function spawnMissile(l, t, s, la, d) {
+	missileArray.push({left: l, top: t, speed: s, launcher: la, damage: d});
+}
+function spawnPickup(l, t, s, ty, a) {
+	pickupArray.push({left: l, top: t, speed: s, type: ty, amount: a});
+}
+
+initializeGame();
+
+		</script>
+	</body>
+</html>
