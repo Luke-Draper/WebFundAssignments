@@ -68,7 +68,11 @@ document.onclick = function(e) {
 	// console.log('X, Y', x, y);
 	// console.log('Original Color', world[y][x]);
 	console.log('Replace color', world[y][x], ' with color 4 starting from x:', x, 'y:', y);
-	fill(x, y, world[y][x], 4);
+	var new_color = world[y][x]+1;
+	if (new_color >=5) {
+		new_color = 0;
+	}
+	fill(x, y, world[y][x], new_color);
 }
 function getAllAdjacentSameColor(x,y,color) {
 	var output = [];
@@ -87,8 +91,8 @@ function getAllAdjacentSameColor(x,y,color) {
 	return output;
 }
 function fill(x,y,original_color, color) {
-	var next = getAllAdjacentSameColor(x,y,original_color);
 	world[y][x] = color;
+	var next = getAllAdjacentSameColor(x,y,original_color);
 	if (next.length>0) {
 		for (var i=0; i<next.length; i++) {
 			fill(next[i][0],next[i][1],original_color, color);
