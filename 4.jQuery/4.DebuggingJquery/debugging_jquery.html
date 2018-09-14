@@ -19,14 +19,15 @@
 			$('img').click(function(){
 				$(this).slideUp();
 			})
-
 			$('h5').click(function(){
 				$('img').slideDown();
 			})
 
 			$('button').click(function(){
-				var result = $('input:checked').val()  
-				alert("Thank you for your input, we like " + result + " too!");
+				var result = $('input:checked').val()
+				if (result!=undefined) {
+					alert("Thank you for your input, we like " + result + " too!");
+				}
 			})
 
 
