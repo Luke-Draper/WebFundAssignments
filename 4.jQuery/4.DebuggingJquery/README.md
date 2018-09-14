@@ -3,4 +3,9 @@ I used the forked repo that contains the basic folder structure. The file in tha
 
 ## 5 Bugs
 1? Not sure if this is related to the debugging... misnamed .png file
-2. Tell us could alert "we like undefined too!"
+2. Tell us button could alert "we like undefined too!"
+3. line 24 had no semicolon
+4. line 21 space between slide and Down
+5. hover and function missing (
+6. Missing }
+7. line 24 calls value instead of val
