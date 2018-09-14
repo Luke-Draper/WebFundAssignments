@@ -1,22 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script
-    src="http://code.jquery.com/jquery-3.3.1.js"
-    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-    crossorigin="anonymous"></script> <!-- jQuery loaded up! -->
-    <script src="functions.js"></script> <!-- Our javascript -->
-    <link rel="stylesheet" href="style.css"> <!-- Our stylesheet which some jQuery functions like .addClass() work with -->
-    <title>Fun with Functions</title>
-</head>
-<body>
-    <div id="addClass">
-        <h1>AddClass</h1>
-        <button>AddClass</button>
-        <p>Click the button to add class 'red' to this paragraph.</p>
-    </div>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script> <!-- jQuery loaded up! -->
+		<script src="functions.js"></script> <!-- Our javascript -->
+		<link rel="stylesheet" href="style.css"> <!-- Our stylesheet which some jQuery functions like .addClass() work with -->
+		<title>Fun with Functions</title>
+	</head>
+	<body class="container-center">
+		<div id="click">
+			<h1>Click</h1>
+			<button>Click</button>
+			<p>Click the button to log "Click" in the console.</p>
+		</div>
+		<div id="hide">
+			<h1>Hide</h1>
+			<button>Hide</button>
+			<p>Click the button to <span>hide</span> this text.</p>
+		</div>
+		<div id="show">
+			<h1>Show</h1>
+			<button>Show</button>
+			<p>Click the button to show the previous hidden text.</p>
+		</div>
+		<div id="toggle">
+			<h1>Toggle</h1>
+			<button>Toggle</button>
+			<p>Click the button to <span>toggle</span> this text.</p>
+		</div>
+		<div id="slideDown">
+			<h1>SlideDown</h1>
+			<button>SlideDown</button>
+			<p>Click the button slide down this paragraph.</p>
+		</div>
+		<div id="slideUp">
+			<h1>SlideUp</h1>
+			<button>SlideUp</button>
+			<p>Click the button slide up this paragraph.</p>
+		</div>
+		<div id="slideToggle">
+			<h1>SlideToggle</h1>
+			<button>SlideToggle</button>
+			<p>Click the button slide toggle this paragraph.</p>
+		</div>
+		<div id="fadeOut">
+			<h1>FadeOut</h1>
+			<button>FadeOut</button>
+			<p>Click the button fade out this paragraph.</p>
+		</div>
+		<div id="fadeIn">
+			<h1>FadeIn</h1>
+			<button>FadeIn</button>
+			<p>Click the button to fade in the previous fade out paragraph.</p>
+		</div>
+		<div id="addClass">
+			<h1>AddClass</h1>
+			<button>AddClass</button>
+			<p>Click the button to add class 'red' to this paragraph.</p>
+		</div>
+		<div id="before">
+			<h1>Before</h1>
+			<button>Before</button>
+			<p>Click the button to add "Before" before this paragraph.</p>
+		</div>
+		<div id="after">
+			<h1>After</h1>
+			<button>After</button>
+			<p>Click the button to add "After" after paragraph.</p>
+		</div>
+		<div id="append">
+			<h1>Append</h1>
+			<button>Append</button>
+			<p>Click the button to append " Append." to this paragraph.</p>
+		</div>
+		<div id="html">
+			<h1>HTML</h1>
+			<button>HTML</button>
+			<p>Click the button to change the HTML of this paragraph.</p>
+		</div>
+		<div id="attr">
+			<h1>Attr</h1>
+			<button>Attr</button>
+			<p id="hello-attribute">Click the button to log the attribute "id" of this paragraph in the console.</p>
+		</div>
+		<div id="val">
+			<h1>Val</h1>
+			<button>Val</button>
+			<p>Click the button to log the value of this textarea in the console.</p>
+			<textarea></textarea>
+		</div>
+		<div id="text">
+			<h1>Text</h1>
+			<button>Text</button>
+			<p val="hello-value">Click the button to change the text of this paragraph.</p>
+		</div>
+	</body>
 </html>
