@@ -6,4 +6,26 @@ ON languages.country_id = countries.id
 WHERE languages.language = 'Slovene'
 ORDER BY languages.percentage DESC;
 
+2.
+SELECT countries.name, COUNT(cities.country_id) AS number_of_cities FROM cities
+LEFT JOIN countries ON cities.country_id = countries.id
+GROUP BY countries.name
+ORDER BY number_of_cities DESC, countries.name ASC;
+
+3.
+SELECT cities.name, cities.population
+FROM cities
+JOIN countries
+ON cities.country_id = countries.id
+WHERE countries.name = 'Mexico' AND cities.population >= 500000
+ORDER BY cities.population DESC;
+
+4.
+SELECT countries.name, languages.language, languages.percentage
+FROM languages
+JOIN countries
+ON languages.country_id = countries.id
+WHERE languages.percentage >= 89
+ORDER BY languages.percentage DESC;
+
 
