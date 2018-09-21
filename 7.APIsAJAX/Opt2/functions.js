@@ -9,6 +9,7 @@
 var urls = null;
 var pokemans = [];
 var ordered_pokemans = [];
+var ordered = false;
 $(document).ready(function(){
 	$.get("https://pokeapi.co/api/v2/pokemon/", function(res) {
 		urls = res;
@@ -19,8 +20,29 @@ $(document).ready(function(){
 		}
 	}, "json");
 });
-$( document ).ajaxComplete(function( event,request, settings ) {
-	if (urls!=null&&pokemans.length>=urls.count) {
-		console.log(pokemans);
+$(document).ajaxComplete(function() {
+	if (!ordered&&urls!=null&&pokemans.length>=urls.count) {
+		var next_order=0;
+		while(ordered_pokemans.length<pokemans.length && next_order<=1000) {
+			for (var i=0; i<pokemans.length; ++i) {
+				if (pokemans[i].order!=null) {
+					if (pokemans[i].order == next_order) {
+						if (pokemans[i].sprites.front_default!=null) {
+							ordered_pokemans.push(pokemans[i]);
+						}
+					}
+				}
+			}
+			next_order++;
+		}
+		ordered = true;
+		/*var outhtml = "";
+		for (var i=0; i<ordered_pokemans.length; ++i) {
+			outhtml += "<img src='"+ordered_pokemans[i].sprites.front_default+
+			"' id='"+ordered_pokemans[i].name+
+			"' alt='"+ordered_pokemans[i].name+
+			"' index='"+i+"' class='pokemon'>";
+		}
+		$("#image-container").html(outhtml);*/
 	}
 });
