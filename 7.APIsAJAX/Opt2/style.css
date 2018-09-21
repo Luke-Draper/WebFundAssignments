@@ -28,14 +28,58 @@
 
 #pokedex-container {
 	padding: 0;
-	width: 640px;
-	height: 800px;
+	width: 320px;
+	height: 480px;
 	display: inline-block;
 	position: fixed;
 	left: 720px;
 	top: 40px;
 	background-color: darkred;
 	border-radius: 40px;
+}
+#pokedex-container img {
+	padding: 0;
+	width: 200px;
+	height: 200px;
+	margin: 40px;
+	margin-bottom: 0;
+	padding: 20px;
+	background-color: white;
+	border-radius: 20px;
+}
+#pokedex-container .pokedex-data {
+	width: 200px;
+	height: 160px;
+	margin: 40px;
+	margin-top: -40px;
+	padding: 20px;
+	background-color: white;
+	border-radius: 20px;
+	display: inline-block;
+}
+#pokedex-container .pokedex-data p {
+	display: block;
+	margin-top: 10px;
+	text-align: left;
+}
+#pokedex-container .pokedex-data span {
+	display: inline;
+	text-align: right;
+}
+#name {
+	margin-left: 13px;
+}
+#id {
+	margin-left: 40px;
+}
+#type {
+	margin-left: 23px;
+}
+#height {
+	margin-left: 13px;
+}
+#weight {
+	margin-left: 10px;
 }
 /*
 			<div id="pokedex-container" index="0">
