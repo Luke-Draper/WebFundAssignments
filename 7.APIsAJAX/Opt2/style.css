@@ -16,6 +16,7 @@
 	margin: 40px;
 	padding: 0;
 	width: 640px;
+	display: inline-block;
 }
 .pokemon {
 	border: 1px solid grey;
@@ -24,3 +25,26 @@
 	width: 58px;
 	height: 58px;
 }
+
+#pokedex-container {
+	padding: 0;
+	width: 640px;
+	height: 800px;
+	display: inline-block;
+	position: fixed;
+	left: 720px;
+	top: 40px;
+	background-color: darkred;
+	border-radius: 40px;
+}
+/*
+			<div id="pokedex-container" index="0">
+				<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="bulbasaur" class="pokedex-image">
+				<div class="pokedex-data">
+					<p>Name : </p><span id="name">Bulbasaur</span>
+					<p>ID : </p><span id="id">1</span>
+					<p>Type : </p><span id="type">Grass, Poison</span>
+					<p>Height : </p><span id="height">0.7 m</span>
+					<p>Weight : </p><span id="weight">6.9 kg</span>
+				</div>
+			</div>*/

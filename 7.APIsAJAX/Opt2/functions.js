@@ -1,15 +1,31 @@
-/*$(document).ready(function(){
-// "<img src='http://pokeapi.co/media/sprites/pokemon/"+i+".png'>"
-	var outhtml = "";
-	for (var i=1; i<=151; ++i) {
-		outhtml += "<img src='http://pokeapi.co/media/sprites/pokemon/"+i+".png'>"
-	}
-	$("#img-container").html(outhtml);
-});*/
 var urls = null;
 var pokemans = [];
 var ordered_pokemans = [];
 var ordered = false;
+function updatePokedex(index) {
+	var poke = ordered_pokemans[index];
+	$('#pokedex-container').attr('index', index);
+	$('#pokedex-container img').attr('src', poke.sprites.front_default);
+	$('#pokedex-container img').attr('alt', poke.name);
+	var name_text = poke.name;
+	name_text = name_text.toLowerCase().split('-').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+	$('#name').html(name_text);
+	$('#id').html(poke.id);
+	var type_text = "";
+	if (poke.types.length==1) {
+		type_text+=poke.types[0].type.name;
+	} else {
+		if (poke.types[0].slot == 1) {
+			type_text+=poke.types[0].type.name + ",-" + poke.types[1].type.name;
+		} else {
+			type_text+=poke.types[1].type.name + ",-" + poke.types[0].type.name;
+		}
+	}
+	type_text = type_text.toLowerCase().split('-').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+	$('#type').html(type_text);
+	$('#height').html((poke.height/10)+" m");
+	$('#weight').html((poke.weight/10)+" kg");
+}
 $(document).ready(function(){
 	$.get("https://pokeapi.co/api/v2/pokemon/", function(res) {
 		urls = res;
@@ -19,6 +35,11 @@ $(document).ready(function(){
 			}, "json");
 		}
 	}, "json");
+	$('.pokemon').click(function(){
+		if (ordered) {
+			updatePokedex($(this).attr('index'));
+		}
+	});
 });
 $(document).ajaxComplete(function() {
 	if (!ordered&&urls!=null&&pokemans.length>=urls.count) {
