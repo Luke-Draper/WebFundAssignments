@@ -6,14 +6,21 @@
 	}
 	$("#img-container").html(outhtml);
 });*/
+var urls = null;
 var pokemans = [];
+var ordered_pokemans = [];
 $(document).ready(function(){
-	$.get("https://pokeapi.co/api/v2/pokemon/12/", function(res) {
-		pokemans.push(res);
-		console.log(pokemans);
+	$.get("https://pokeapi.co/api/v2/pokemon/", function(res) {
+		urls = res;
+		for (var i=0; i<urls.results.length; ++i) {
+			$.get(urls.results[i].url, function(resb) {
+				pokemans.push(resb);
+			}, "json");
+		}
 	}, "json");
-	$.get("https://pokeapi.co/api/v2/pokemon/11/", function(res) {
-		pokemans.push(res);
+});
+$( document ).ajaxComplete(function( event,request, settings ) {
+	if (urls!=null&&pokemans.length>=urls.count) {
 		console.log(pokemans);
-	}, "json");
+	}
 });
